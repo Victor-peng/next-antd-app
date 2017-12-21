@@ -1,10 +1,19 @@
 module.exports = {
-  webpack: (config) => {
-    // Fixes npm packages that depend on `fs` module
-    config.node = {
-      fs: 'empty'
-    }
+  webpack: (config, { dev }) => {
+    config.module.rules.push(
+      {
+        test: /\.(less)/,
+        loader: 'emit-file-loader',
+        options: {
+          name: 'dist/[path][name].[ext]'
+        }
+      },
+      {
+        test: /\.less$/,
+        use: ['babel-loader', 'raw-loader', 'less-loader']
+      }
+    );
+    return config;
+  },
+};
 
-    return config
-  }
-}

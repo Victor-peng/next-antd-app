@@ -6,7 +6,12 @@
     "start": "next start"
   },
   "dependencies": {
+    "antd": "^3.0.2",
+    "babel-plugin-import": "^1.6.3",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
     "next": "^4.2.1",
+    "raw-loader": "^0.5.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   }

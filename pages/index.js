@@ -1,11 +1,12 @@
 import Head from '../components/head'
 import stylesheet from '../styles/index.less'
+import 'isomorphic-unfetch'
 
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
-export default () => (
+const Index = (props) => (
   <Layout>
     <Head title="Home" />
     <Header className="header">
@@ -56,7 +57,9 @@ export default () => (
           </Menu>
         </Sider>
         <Content style={{ padding: '0 24px', minHeight: 280 }}>
-          Content
+          <div>
+            Next stars: {props.stars}
+          </div>
         </Content>
       </Layout>
     </Content>
@@ -71,3 +74,13 @@ export default () => (
     <style jsx global>{ stylesheet }</style>
   </Layout>
 )
+
+Index.getInitialProps = async ({ req }) => {
+  const res = await fetch('https://api.github.com/repos/zeit/next.js')
+  const json = await res.json()
+  const stars = json.stargazers_count
+  return { stars }
+}
+
+export default Index
+
